@@ -26,7 +26,7 @@ const Home: NextPage<Props> = ({pokemons}) => {
 
     <>
       <Layout title='Listado de Pokemons'>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4 mt-5">
     {
       pokemons.map( pokemon => (
         <PokemonCard
