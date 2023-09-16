@@ -1,10 +1,12 @@
-import Image from 'next/image'
+/* import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import { Button } from '@nextui-org/react'
+import {Card, CardBody, CardFooter, Button } from '@nextui-org/react' */
 import {Layout} from '../components/layouts'
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetStaticProps} from 'next'
 import { pokeApi } from '@/api'
 import { PokemonResponse, SmallPokemon } from '@/interfaces'
+import {PokemonCard} from '../components/pokemon/PokemonCard';
+
 
 
 interface Props {
@@ -24,18 +26,19 @@ const Home: NextPage<Props> = ({pokemons}) => {
 
     <>
       <Layout title='Listado de Pokemons'>
+      <div className="grid grid-cols-3 gap-4">
+    {
+      pokemons.map( pokemon => (
+        <PokemonCard
+        key={pokemon.id}
+        pokemon={pokemon}
+        />
 
-        <ul>
-          {
-            pokemons.map(poke => (
-              <li key={poke.id}>
-                #{poke.id} - {poke.name}
-              </li>
-            ))
-          }
-        </ul>
-
+      ))
+    }
+        </div>
       </Layout>
+
     </>
 
   )
