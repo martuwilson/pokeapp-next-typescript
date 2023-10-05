@@ -1,3 +1,6 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { Key } from "react";
+
 export interface PokemonResponse {
     count:    number;
     next?:     string;
@@ -6,6 +9,9 @@ export interface PokemonResponse {
 }
 
 export interface SmallPokemon{
+    img: string;
+    image: string | StaticImport;
+    id: Key | null | undefined;
     name: string;
     url:  string;
 }

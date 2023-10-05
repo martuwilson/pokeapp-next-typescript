@@ -16,17 +16,15 @@ export const PokemonCard: FC<Props> = ({pokemon}) => {
 
     const onPokeClick = () => {
 
-        pokeRouter.push(`/pokemon/${pokemon.id}`)
+      pokeRouter.push(`/pokemon/${pokemon.id}`)
 
     };
-
-    console.log(pokemon)
 
   return (
     <>
     <Card key={pokemon.id} isHoverable>
           <CardBody className="flex flex-col items-center justify-center h-full"> 
-            <Image src={pokemon.image} alt={pokemon.name} width={100} height={50} className="mb-2" />
+            <Image src={  pokemon.img || '/no-image.png' } alt={pokemon.name} width={200} height={200} className="mx-auto"/>
               <h2 className="text-2xl font-bold text-center">{pokemon.name.toUpperCase()}</h2>
           </CardBody>
           <CardFooter className='flex flex-col items-center justify-center'>
