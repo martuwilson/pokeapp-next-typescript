@@ -1,6 +1,6 @@
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
-
-import { Layout } from '@/components/layouts'
+import { useEffect } from 'react'; 
+import { Layout } from '@/components/layouts';
 import { pokeApi } from '@/api';
 import { Pokemon } from '@/interfaces';
 import Image from 'next/image';
@@ -10,25 +10,40 @@ interface Props{
     pokemon: Pokemon
 }
 
-const PokemonPage: NextPage<Props> = (pokemon) => {
+const PokemonPage: NextPage<Props> = ({ pokemon }) => {
+
+    /* console.log(pokemon) */
+
+    const onClickFavorite = () => {
+        console.log('ID:', pokemon.id)
+        localStorage.setItem('favorite', `${pokemon.id}`)
+    }
+
+    useEffect(() => {
+        console.log('useEffect', localStorage.getItem('favorite'));
+    },[])
 
   return (
-    <Layout title={pokemon.pokemon.name}>
+    <Layout title={pokemon.name}>
        <div style={{ marginTop: '5px'}}>
             <div className="w-auto bg-gradient-to-r from-blue-500 to-purple-500">
                 <div className="p-4 border rounded ">
                     <div className="mb-4">
                         <Image
-                            src={pokemon.pokemon.sprites.other?.dream_world.front_default || '/no-image.png'}
-                            alt={pokemon.pokemon.name}
+                            src={pokemon.sprites.other?.dream_world.front_default || '/no-image.png'}
+                            alt={pokemon.name}
                             width={200}
                             height={200}
                             className="mx-auto"
                         />
                     </div>
                     <div className="text-center">
-                        <h1 className="text-2xl font-bold capitalize">{pokemon.pokemon.name}</h1>
-                        <button className="bg-gradient-to-r from-green-500 to-yellow-500 text-white py-2 px-4 rounded hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 mt-4">
+                        <h1 className="text-2xl font-bold capitalize">{pokemon.name}</h1>
+                        <button
+                        className="bg-gradient-to-r from-green-500 to-yellow-500 text-white py-2 px-4 rounded hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 mt-4"
+                        
+                        onClick={onClickFavorite}
+                        >
                             Guardar en favoritos
                         </button>
                     </div>
