@@ -1,9 +1,10 @@
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
-import { useEffect } from 'react'; 
+
 import { Layout } from '@/components/layouts';
 import { pokeApi } from '@/api';
 import { Pokemon } from '@/interfaces';
 import Image from 'next/image';
+import { localFavorites } from '@/utils';
 
 
 interface Props{
@@ -15,14 +16,10 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
     /* console.log(pokemon) */
 
     const onClickFavorite = () => {
-        console.log('ID:', pokemon.id)
-        localStorage.setItem('favorite', `${pokemon.id}`)
+        localFavorites.toggleFavorite(pokemon.id)
     }
 
-    useEffect(() => {
-        console.log('useEffect', localStorage.getItem('favorite'));
-    },[])
-
+   
   return (
     <Layout title={pokemon.name}>
        <div style={{ marginTop: '5px'}}>
