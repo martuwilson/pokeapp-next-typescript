@@ -1,9 +1,10 @@
+import { useState } from 'react'; 
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
-import { useEffect } from 'react'; 
 import { Layout } from '@/components/layouts';
 import { pokeApi } from '@/api';
 import { Pokemon } from '@/interfaces';
 import Image from 'next/image';
+import { localFavorites } from '@/utils';
 
 
 interface Props{
@@ -12,16 +13,14 @@ interface Props{
 
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
-    /* console.log(pokemon) */
+    const [isFavorite, setIsFavorite] = useState(localFavorites.existFavorite(pokemon.id));
 
     const onClickFavorite = () => {
-        console.log('ID:', pokemon.id)
-        localStorage.setItem('favorite', `${pokemon.id}`)
+        localFavorites.toggleFavorite(pokemon.id);
+        setIsFavorite(!isFavorite);
     }
 
-    useEffect(() => {
-        console.log('useEffect', localStorage.getItem('favorite'));
-    },[])
+    
 
   return (
     <Layout title={pokemon.name}>
@@ -41,10 +40,9 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
                         <h1 className="text-2xl font-bold capitalize">{pokemon.name}</h1>
                         <button
                         className="bg-gradient-to-r from-green-500 to-yellow-500 text-white py-2 px-4 rounded hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 mt-4"
-                        
                         onClick={onClickFavorite}
                         >
-                            Guardar en favoritos
+                            {!isFavorite ? 'Agregar a favoritos' : 'Quitar de favoritos'}
                         </button>
                     </div>
                 </div>
