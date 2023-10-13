@@ -7,6 +7,7 @@ import { NoFavorites } from '@/components/ui';
 import { localFavorites } from '@/utils';
 
 import {Card, CardFooter, Image, Button} from "@nextui-org/react";
+import { FavoritePokemons } from '@/components/pokemon/FavoritePokemons';
 
 const FavoritePage = () => {
 
@@ -23,24 +24,7 @@ const FavoritePage = () => {
 
       {
         favoritePokemons.length === 0 ? (<NoFavorites />) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 justify-start">
-    {
-        favoritePokemons.map((id) => (
-          <Card key={id} isHoverable className='mt-2'>
-          <div className="flex items-center justify-center h-200">
-              <Image
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
-                  alt={`pokemon-${id}`}
-                  width={200}
-                  height={200}
-                  className="mx-auto"
-              />
-          </div>
-      </Card>
-        ))
-    }
-</div>
-
+          <FavoritePokemons pokemons={favoritePokemons}/>
         )
       }
       
