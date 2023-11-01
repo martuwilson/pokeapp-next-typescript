@@ -2,6 +2,7 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Key } from "react";
 
 export interface PokemonResponse {
+    name: string;
     count:    number;
     next?:     string;
     previous?: string;
