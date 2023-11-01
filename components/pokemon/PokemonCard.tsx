@@ -1,7 +1,7 @@
 import { SmallPokemon } from '@/interfaces'
 import React, { FC } from 'react'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
+
 import {Card, CardBody, CardFooter, Button } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 
