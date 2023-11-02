@@ -8,6 +8,7 @@ import { pokeApi } from '@/api';
 import { Pokemon } from '@/interfaces';
 import Image from 'next/image';
 import { localFavorites } from '@/utils';
+import { getPokemonInfo } from '@/utils/getPokemonInfo';
 
 
 interface Props{
@@ -79,20 +80,35 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
             }
         ))
         ,
-        fallback: false
+        /* fallback: false */ 
+        fallback: "blocking" // si no esta en paths, se genera la pagina en el servidor y se guarda en cache
     }
   
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
-    const {id} = params as {id: string};
-    const {data} = await pokeApi.get<Pokemon>(`/pokemon/${id}`);
-    return {
-        props: {
-            pokemon: data
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  
+    const { id } = params as { id: string };
+  
+    const pokemon = await getPokemonInfo( id );
+  
+    if ( !pokemon ) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false
         }
+      }
     }
-}
+  
+  
+    return {
+      props: {
+        pokemon
+      },
+      revalidate: 86400, // 24hs,
+    }
+  }
 
 
 export default PokemonPage
