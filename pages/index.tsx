@@ -4,8 +4,6 @@ import { pokeApi } from '@/api'
 import { PokemonResponse, SmallPokemon } from '@/interfaces'
 import {PokemonCard} from '../components/pokemon/PokemonCard';
 
-
-
 interface Props {
   pokemons: SmallPokemon[]
 }
@@ -16,16 +14,17 @@ const Home: NextPage<Props> = ({pokemons}) => {
 
     <>
       <Layout title='Listado de Pokemons'>
-      <div className="grid grid-cols-3 gap-4 mt-5">
-    {
-      pokemons.map( pokemon => (
-        <PokemonCard
-        key={pokemon.id}
-        pokemon={pokemon}
-        />
+        
+        <div className="grid grid-cols-3 gap-4 mt-5">
+      {
+        pokemons.map( pokemon => (
+          <PokemonCard
+          key={pokemon.id}
+          pokemon={pokemon}
+          />
 
-      ))
-    }
+        ))
+      }
         </div>
       </Layout>
 

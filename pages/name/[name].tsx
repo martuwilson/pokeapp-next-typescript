@@ -82,7 +82,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   
   
   
-  export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
     const { name } = params as { name: string };
   
     try {
@@ -108,7 +108,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
         notFound: true,
       };
     }
-  };
+};
 
 
 export default PokemonByNamePage
