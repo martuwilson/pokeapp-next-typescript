@@ -8,6 +8,7 @@ import { pokeApi } from '@/api';
 import { Pokemon,PokemonResponse } from '@/interfaces';
 import Image from 'next/image';
 import { localFavorites } from '@/utils';
+import { getPokemonInfo } from '@/utils/getPokemonInfo';
 
 
 interface Props{
@@ -76,39 +77,33 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
       paths: pokemonNames.map( name => ({
         params: { name }
       })),
-      fallback: false
+      fallback: 'blocking'
     }
   }
   
   
   
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+  export const getStaticProps: GetStaticProps = async ({ params }) => {
+  
     const { name } = params as { name: string };
   
-    try {
-     
-      const { data } = await pokeApi.get<Pokemon>(`/pokemon/${name}`);
+    const pokemon = await getPokemonInfo( name );
   
-      
-      const pokemon = {
-        id: data.id,
-        name: data.name,
-        sprites: data.sprites,
-      
-      };
-  
+    if ( !pokemon ) {
       return {
-        props: {
-          pokemon,
-        },
-      };
-    } catch (error) {
-      
-      return {
-        notFound: true,
-      };
+        redirect: {
+          destination: '/',
+          permanent: false
+        }
+      }
     }
-};
+  
+    return {
+      props: {
+        pokemon
+      }
+    }
+  }
 
 
 export default PokemonByNamePage
