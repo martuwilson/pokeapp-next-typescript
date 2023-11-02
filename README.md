@@ -1,6 +1,6 @@
 # Poke API con Next.js, Tailwind CSS y TypeScript
 
-![Poke API Screenshot](./screenshot.png)
+
 
 Este proyecto es una aplicación web que utiliza la Poke API para mostrar información sobre Pokémon. Está construido con Next.js, Tailwind CSS y TypeScript para crear una experiencia de usuario atractiva y moderna.
 
